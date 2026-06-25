@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEKTRI | Impressão 3D Avançada e Soluções Sob Medida</title>
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS DE COR E CONFIGURAÇÕES GERAIS (TEMA DARK)
+           ========================================================================== */
+        :root {
+            --bg-principal: #0a0a0a;     /* Preto profundo de fundo */
+            --bg-secundario: #121212;    /* Cinza escuro para blocos/cards */
+            --bg-terciario: #1a1a1a;     /* Borda e destaques sutis */
+            --texto-principal: #ffffff;  /* Branco puro para leitura limpa */
+            --texto-secundario: #a0a0a0; /* Cinza claro para subtítulos e descrições */
+            --cor-destaque: #007bff; /* Cor de destaque (Azul Glow) */
+            --fonte: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--fonte);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO (HEADER) E LOGO
+           ========================================================================== */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--bg-terciario);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo-mektri {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mektri img {
+            height: 45px; /* Ajusta a altura do seu logo no menu */
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Botão CTA no Header */
+        .header-content .btn-cta {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            border: 2px solid var(--cor-destaque);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .header-content .btn-cta:hover {
+            background-color: var(--cor-destaque);
+            color: var(--bg-principal);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+        }
+
+        /* ==========================================================================
+           3. SEÇÃO HERO / APRESENTAÇÃO (fundo integrado em tela cheia)
+           ========================================================================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 150px 0 105px;
+            overflow: hidden;
+            background-color: var(--bg-principal);
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.92) 0%,
+                    rgba(0, 0, 0, 0.70) 34%,
+                    rgba(0, 0, 0, 0.22) 58%,
+                    rgba(0, 0, 0, 0.72) 100%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.50) 0%,
+                    rgba(0, 0, 0, 0.10) 42%,
+                    rgba(0, 0, 0, 0.88) 100%
+                ),
+                url('assets/hero-3d-visuals.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 66% 42%, rgba(0, 123, 255, 0.20), transparent 32%),
+                radial-gradient(circle at 18% 55%, rgba(0, 123, 255, 0.12), transparent 38%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.68));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 72px 72px;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Hero centralizado, sem imagem separada na direita */
+        .hero-panels {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-text-content {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .hero-visuals {
+            display: none;
+        }
+
+        .tag-topo {
+            display: inline-block;
+            text-transform: none;
+            font-size: 0.92rem;
+            letter-spacing: 0.01em;
+            color: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(120, 190, 255, 0.45);
+            padding: 7px 14px;
+            border-radius: 6px;
+            margin-bottom: 22px;
+            background: rgba(0, 0, 0, 0.48);
+            box-shadow: 0 0 22px rgba(0, 123, 255, 0.18);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            font-size: clamp(2.15rem, 3vw, 3.05rem);
+            font-weight: 800;
+            letter-spacing: -1.15px;
+            line-height: 1.10;
+            margin-bottom: 18px;
+            color: #ffffff;
+            text-shadow: 0 8px 34px rgba(0, 0, 0, 0.72);
+        }
+
+        .hero-text-content p {
+            max-width: 680px;
+            margin: 0 auto 22px;
+            font-size: clamp(1rem, 1.08vw, 1.12rem);
+            color: rgba(255, 255, 255, 0.84);
+            line-height: 1.55;
+            text-shadow: 0 5px 22px rgba(0, 0, 0, 0.78);
+        }
+
+        .hero-proof {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-proof span {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(77, 168, 255, 0.32);
+            background: rgba(2, 17, 32, 0.54);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.82rem;
+            font-weight: 650;
+            letter-spacing: 0.01em;
+            box-shadow: 0 0 18px rgba(0, 123, 255, 0.12);
+        }
+
+        /* Botão Principal de Conversão (com Glow azul) */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(2, 17, 32, 0.70);
+            color: var(--texto-principal);
+            padding: 14px 28px;
+            min-height: 50px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid rgba(77, 168, 255, 0.86);
+            transition: all 0.3s ease;
+            box-shadow:
+                0 0 0 1px rgba(77, 168, 255, 0.15),
+                0 0 24px rgba(0, 123, 255, 0.33);
+            position: relative;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            background-color: rgba(0, 123, 255, 0.95);
+            color: #fff;
+            box-shadow: 0 0 34px rgba(0, 123, 255, 0.58);
+        }
+
+        /* ==========================================================================
+           4. SEÇÃO DE POSSIBILIDADES (Aplicações Práticas da Impressão 3D)
+           ========================================================================== */
+        .secao {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--bg-terciario);
+        }
+
+        .titulo-secao {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .titulo-secao h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .titulo-secao p {
+            color: var(--texto-secundario);
+        }
+
+        .grid-possibilidades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card-possibilidade {
+            background-color: var(--bg-secundario);
+            border: 1px solid var(--bg-terciario);
+            padding: 40px 30px;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-possibilidade:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+        }
+
+        .card-possibilidade h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 12px 0;
+        }
+
+        .card-possibilidade p {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           5. VITRINE DE MODELOS (Seu Portfólio Real)
+           ========================================================================== */
+        .grid-modelos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .card-modelo {
+            background-color: var(--bg-secundario);
+            border: 1px solid var(--bg-terciario);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .imagem-container {
+            width: 100%;
+            height: 320px;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            border-bottom: 1px solid var(--bg-terciario);
+        }
+
+        .imagem-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-modelo:hover .imagem-container img {
+            transform: scale(1.05);
+        }
+
+        .info-modelo {
+            padding: 24px;
+        }
+
+        .tag-categoria {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        .info-modelo h3 {
+            margin: 8px 0;
+            font-size: 1.25rem;
+        }
+
+        .info-modelo p {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO DE FECHAMENTO (CTA FINAL)
+           ========================================================================= */
+        .cta-final {
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
+            padding: 12px 0 100px 0;
+        }
+
+        .cta-final h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-final p {
+            color: var(--texto-secundario);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* ==========================================================================
+           BOTÃO FLUTUANTE WHATSAPP (azul, integrado ao tema)
+           ========================================================================== */
+        .whatsapp-float {
+            position: fixed;
+            right: 26px;
+            bottom: 26px;
+            width: 58px;
+            height: 58px;
+            z-index: 1200;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            background:
+                radial-gradient(circle at 35% 28%, rgba(94, 190, 255, 0.36), transparent 35%),
+                rgba(2, 17, 32, 0.92);
+            border: 1px solid rgba(77, 168, 255, 0.88);
+            box-shadow:
+                0 0 0 1px rgba(77, 168, 255, 0.16),
+                0 0 22px rgba(0, 123, 255, 0.42),
+                0 14px 32px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .whatsapp-float::before {
+            content: "";
+            position: absolute;
+            inset: -7px;
+            border-radius: inherit;
+            border: 1px solid rgba(0, 123, 255, 0.22);
+            animation: whatsappPulse 2.4s ease-out infinite;
+        }
+
+        .whatsapp-float svg {
+            width: 30px;
+            height: 30px;
+            fill: #2ea8ff;
+            filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.75));
+            position: relative;
+            z-index: 1;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-3px) scale(1.04);
+            background-color: rgba(0, 123, 255, 0.18);
+            box-shadow:
+                0 0 0 1px rgba(77, 168, 255, 0.30),
+                0 0 34px rgba(0, 123, 255, 0.62),
+                0 18px 38px rgba(0, 0, 0, 0.52);
+        }
+
+        @keyframes whatsappPulse {
+            0% {
+                transform: scale(0.92);
+                opacity: 0.75;
+            }
+            70%, 100% {
+                transform: scale(1.24);
+                opacity: 0;
+            }
+        }
+
+        /* ==========================================================================
+           7. RODAPÉ (FOOTER)
+           ========================================================================== */
+        footer {
+            background-color: #050505;
+            padding: 40px 0;
+            border-top: 1px solid var(--bg-terciario);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVIDADE (MOBILE-FRIENDLY)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header {
+                background-color: rgba(5, 5, 5, 0.92);
+            }
+
+            .header-content {
+                height: 72px;
+            }
+
+            .logo-mektri img {
+                height: 34px;
+            }
+
+            .logo-mektri span {
+                font-size: 1.2rem !important;
+            }
+
+            .header-content .btn-cta {
+                padding: 9px 12px;
+                font-size: 0.78rem;
+            }
+
+            .hero {
+                min-height: auto;
+                align-items: flex-start;
+                padding: 112px 0 34px;
+                background-position: 67% top;
+            }
+
+            .hero::before {
+                background:
+                    linear-gradient(to bottom, rgba(0,0,0,0.88), rgba(0,0,0,0.42) 46%, rgba(0,0,0,0.94) 100%);
+            }
+
+            .hero-panels {
+                text-align: left;
+                justify-content: flex-start;
+            }
+
+            .hero-text-content {
+                max-width: 100%;
+            }
+
+            .tag-topo {
+                font-size: 0.72rem;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                padding: 6px 10px;
+                margin-bottom: 16px;
+            }
+
+            h1 {
+                font-size: clamp(1.72rem, 7.6vw, 2.18rem);
+                line-height: 1.10;
+                letter-spacing: -0.65px;
+                margin-bottom: 16px;
+                max-width: 360px;
+            }
+
+            .hero-text-content p {
+                font-size: 0.96rem;
+                line-height: 1.48;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 18px;
+                max-width: 350px;
+            }
+
+            .hero-proof {
+                justify-content: flex-start;
+                gap: 8px;
+                margin-bottom: 24px;
+                max-width: 350px;
+            }
+
+            .hero-proof span {
+                min-height: 28px;
+                padding: 5px 10px;
+                font-size: 0.72rem;
+            }
+
+            .hero .btn-cta {
+                width: 100%;
+                max-width: 350px;
+                min-height: 52px;
+                font-size: 0.92rem;
+            }
+
+            .secao {
+                padding: 64px 0;
+            }
+
+            .titulo-secao {
+                margin-bottom: 38px;
+            }
+
+            .titulo-secao h2 {
+                font-size: 1.55rem;
+                line-height: 1.18;
+                max-width: 310px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .titulo-secao p {
+                font-size: 0.95rem;
+                max-width: 330px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+
+            .whatsapp-float {
+                right: 18px;
+                bottom: 18px;
+                width: 54px;
+                height: 54px;
+            }
+
+            .whatsapp-float svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .cta-final h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo-mektri">
+                <img src="assets/logo.png" alt="MEKTRI Logo">
+            </div>
+            <a href="https://wa.me/51999999999" target="_blank" class="btn-cta">Solicitar Orçamento</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-panels">
+            <div class="hero-text-content">
+                <span class="tag-topo">Impressão 3D sob medida</span>
+                <h1>Peças, protótipos e soluções 3D feitas sob demanda.</h1>
+                <p>Fabricamos engrenagens, suportes, organizadores e peças personalizadas com acabamento profissional, precisão técnica e atendimento direto pelo WhatsApp.</p>
+                <div class="hero-proof" aria-label="Principais serviços">
+                    <span>Peças técnicas</span>
+                    <span>Protótipos</span>
+                    <span>Sob medida</span>
+                </div>
+                <a href="https://wa.me/51999999999?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D!" target="_blank" class="btn-cta">
+                    Pedir orçamento no WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="secao">
+        <div class="container">
+            <div class="titulo-secao">
+                <h2>O limite é a sua necessidade</h2>
+                <p>Graças à tecnologia de manufatura aditiva, atendemos a diversos mercados com agilidade.</p>
+            </div>
+            
+            <div class="grid-possibilidades">
+                <div class="card-possibilidade">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <h3>Peças de Reposição</h3>
+                    <p>Substitua componentes mecânicos específicos, como engrenagens de molinete, roldanas e suportes industriais com materiais de alta resistência física.</p>
+                </div>
+
+                <div class="card-possibilidade">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <h3>Design & Organização</h3>
+                    <p>Organizadores de mesa premium personalizados para setups minimalistas, unindo estética refinada e funcionalidade para o seu ambiente de trabalho.</p>
+                </div>
+
+                <div class="card-possibilidade">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
+                    <h3>Prototipagem Rápida</h3>
+                    <p>Valide ideias físicas de forma barata e rápida antes de iniciar uma produção em escala. Ideal para engenheiros, designers e inventores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="secao" style="background-color: #0d0d0d;">
+        <div class="container">
+            <div class="titulo-secao">
+                <h2>Portfólio em Destaque</h2>
+                <p>Projetos desenvolvidos com rigor estético e estrutural.</p>
+            </div>
+
+            <div class="grid-modelos">
+                <div class="card-modelo">
+                    <div class="imagem-container">
+                        <img src="assets/deskorganizer.jpeg" alt="DeskOrganizer ">
+                        <div class="peca-3d-placeholder" style="width: 160px; height: 90px; transform: rotateX(60deg) rotateZ(-20deg);"></div>
+                    </div>
+                    <div class="info-modelo">
+                        
+                        <span class="tag-categoria">Setup & Escritório</span>
+                        <h3>Organizador de Mesa Premium</h3>
+                        <p>Desenvolvido para acomodar perfeitamente smartphones, canetas e chaves, trazendo elegância para ambientes corporativos e de home office.</p>
+                    </div>
+                </div>
+
+                <div class="card-modelo">
+                    <div class="imagem-container">
+                        <img src="assets/engmolinete.jpeg" alt="Engrenagem de Molinete">
+                        <div class="peca-3d-placeholder" style="border-radius: 50%; width: 110px; height: 110px; border: 4px dashed #444;"></div>
+                    </div>
+                    <div class="info-modelo">
+                        <span class="tag-categoria">Mecânica de Precisão</span>
+                        <h3>Engrenagem de Molinete</h3>
+                        <p>Peça de reposição técnica projetada milimetricamente para suportar o torque e atrito exigidos, estendendo a vida útil do seu equipamento.</p>
+                    </div>
+                </div>
+
+                <div class="card-modelo">
+                    <div class="imagem-container">
+                        <img src="assets/suporte.jpeg" alt="Suportes e Acoplamentos">
+                        <div class="peca-3d-placeholder" style="width: 100px; height: 100px; background: #151515;"></div>
+                    </div>
+                    <div class="info-modelo">
+                        <span class="tag-categoria">Estrutural</span>
+                        <h3>Suportes e Acoplamentos</h3>
+                        <p>Garras e fixadores robustos para perfis cilíndricos e tubulares, ideais para montagens de estruturas modulares com encaixe firme.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="secao cta-final">
+        <div class="container">
+            <h2>Tem um projeto ou precisa de uma peça sob medida?</h2>
+            <p>Envie sua ideia, arquivo STL ou as dimensões do seu componente. Nós analisamos a viabilidade técnica e te respondemos com o orçamento ideal para o seu projeto.</p>
+            <a href="https://wa.me/51999999999?text=Quero%20fazer%20um%20or%C3%A7amento%20agora!" target="_blank" class="btn-cta">
+                Enviar Minha Ideia pelo WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 MEKTRI. Todos os direitos reservados.</p>
+            <p style="font-size: 11px; margin-top: 10px; color: #555;">Materializando ideias e criando soluções industriais e exclusivas.</p>
+        </div>
+    </footer>
+
+
+    <a class="whatsapp-float"
+       href="https://wa.me/51999999999?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D!"
+       target="_blank"
+       rel="noopener"
+       aria-label="Falar com a MEKTRI pelo WhatsApp">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16.02 3.2c-7.05 0-12.78 5.67-12.78 12.66 0 2.23.59 4.41 1.72 6.33L3.14 28.8l6.82-1.78a12.94 12.94 0 0 0 6.06 1.51c7.05 0 12.78-5.67 12.78-12.66S23.07 3.2 16.02 3.2Zm0 22.96c-1.94 0-3.84-.53-5.48-1.53l-.39-.23-4.04 1.06 1.08-3.88-.25-.4a10.2 10.2 0 0 1-1.57-5.32c0-5.68 4.78-10.3 10.65-10.3 5.88 0 10.65 4.62 10.65 10.3 0 5.68-4.77 10.3-10.65 10.3Zm5.84-7.72c-.32-.16-1.88-.92-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.82 1.03-1 1.24-.18.21-.37.24-.69.08-.32-.16-1.35-.49-2.58-1.55-.95-.84-1.6-1.88-1.79-2.2-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.69-.98-2.32-.26-.61-.52-.53-.71-.54h-.61c-.21 0-.55.08-.84.4-.29.32-1.11 1.07-1.11 2.62s1.14 3.04 1.3 3.25c.16.21 2.25 3.39 5.45 4.75.76.33 1.36.53 1.82.68.76.24 1.46.21 2.01.13.61-.09 1.88-.76 2.14-1.5.26-.74.26-1.37.18-1.5-.08-.13-.29-.21-.61-.37Z"/>
+        </svg>
+    </a>
+
+
+</body>
+</html>
